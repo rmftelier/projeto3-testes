@@ -7,9 +7,9 @@ export class CreateUserController {
     const { name, login, email, password } = req.body;
 
     try {
-      const usecase = new CreateUser(userRepository);
+      const createUser = new CreateUser(userRepository);
 
-      const user = await usecase.execute({ name, login, email, password });
+      const user = await createUser.execute({ name, login, email, password });
 
       return res.status(201).json(user);
     } catch (error: any) {
