@@ -1,11 +1,15 @@
 import { Router } from 'express';
 import { CreateUserController } from '../CreateUserController';
 import { GetUserByIdController } from '../GetUserByIdController';
+import { UpdateUserByController } from '../UpdateUserByIdController';
+import { DeleteUserByIdController } from '../DeleteUserByIdControlelr'
 
 const router = Router(); 
 
 const createUserController = new CreateUserController();
 const getUserByIdController = new GetUserByIdController();
+const updateUserByIdController = new UpdateUserByController();
+const deleteUserByIdController = new DeleteUserByIdController();
 
 
 router.post('/', async (req, res) => {
@@ -15,4 +19,14 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   await getUserByIdController.handle(req, res);
 });
+
+router.patch('/:id', async (req, res) => {
+  await updateUserByIdController.handle(req, res);
+});
+
+router.delete('/:id', async (req, res) => {
+  await deleteUserByIdController.handle({userId: req.params.id});
+  res.status(204).send();
+});
+
 export { router as userRoutes };
