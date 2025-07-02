@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { CreateUserController } from '../CreateUserController';
 import { GetUserByIdController } from '../GetUserByIdController';
 import { UpdateUserByController } from '../UpdateUserByIdController';
-import { DeleteUserByIdController } from '../DeleteUserByIdControlelr'
+import { DeleteUserByIdController } from '../DeleteUserByIdController'
 
 const router = Router(); 
 
@@ -25,8 +25,7 @@ router.patch('/:id', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
-  await deleteUserByIdController.handle({userId: req.params.id});
-  res.status(204).send();
+  await deleteUserByIdController.handle(req, res );
 });
 
 export { router as userRoutes };
