@@ -4,13 +4,14 @@ import { userRepository } from '../../infra/database/repositoryInstance';
 
 export class DeleteUserByIdController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { userId } = req.params; // ou req.params, dependendo da sua rota
+    const { id } = req.params; // ou req.params, dependendo da sua rota
+    console.log(req.params, 'AQUIII')
     const deleteUser = new DeleteUser(userRepository);
     try {
-      if (!userId) {
+      if (!id) {
         return res.status(404).json({ error: 'Usuário não encontrado' });
       }
-      await deleteUser.execute(userId);
+      await deleteUser.execute(id);
        
       return res.status(204).send();
     } catch (error: any) {

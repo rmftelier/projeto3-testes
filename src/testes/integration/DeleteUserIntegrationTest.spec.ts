@@ -23,6 +23,6 @@ describe("DELETE /users:id", () => {
   it("deve retornar 404 quando tentar remover um usuário inexistente", async () => {
     const response = await request(app).delete(`/users/123`)
     expect(response.status).toBe(404);
-    expect(response.body.error).toBe('Usuário não encontrado');
+    expect(response.body.error).toBe('usuário não encontrado');
   });
 });
