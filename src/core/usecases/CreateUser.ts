@@ -19,15 +19,13 @@ export class CreateUser {
     }
 
     const user = new User(
-      randomUUID(),
       data.name,
       data.login,
       data.email,
       data.password
     );
 
-    await this.userRepository.save(user);
-
-    return user;
+   const saved = await this.userRepository.save(user);
+    return saved;
   }
 }

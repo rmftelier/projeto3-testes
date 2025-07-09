@@ -4,8 +4,8 @@ import { UserRepository } from '../../core/repositories/UserRepository';
 export class InMemoryUserRepository implements UserRepository {
   public users: User[] = [];
 
-  async save(user: User): Promise<void> {
-    this.users.push(user);
+  async save(user: User): Promise<User> {
+    return user
   }
 
   async findByEmail(email: string): Promise<User | null> {

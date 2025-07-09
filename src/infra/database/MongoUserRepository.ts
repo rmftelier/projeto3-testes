@@ -4,11 +4,13 @@ import { userModel } from "../database/mongooseUserModel";
 
 export class MongoUserRepository implements UserRepository {
   private toEntity(doc: any): User {
-    return new User(doc.id, doc.name, doc.login, doc.email, doc.password);
+    return new User(doc.name, doc.login, doc.email, doc.password, doc._id.toString());
   }
 
-  async save(user: User) {
-    await userModel.create(user);
+  async save(user: User): Promise<User> {
+    const doc = await userModel.create(user);
+  return this.toEntity(doc)
+
   }
 
   async findByEmail(email: string) {
