@@ -20,7 +20,7 @@ export class MongoUserRepository implements UserRepository {
   }
 
   async findById(id: string) {
-    const doc = await userModel.findOne({ id });
+    const doc = await userModel.findOne({ _id: id });
 
     return doc ? this.toEntity(doc) : null;
   }
@@ -40,6 +40,6 @@ export class MongoUserRepository implements UserRepository {
   }
 
   async delete(id: string) {
-      await userModel.findOneAndDelete({id});
+      await userModel.findOneAndDelete({_id: id});
   }
 }
