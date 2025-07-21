@@ -1,23 +1,24 @@
 import { Request, Response, NextFunction } from "express";
-import  jwt  from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "default"
+import jwt from "jsonwebtoken";
 
-export function autenticar(req: Request, res: Response, next: NextFunction){
-    const authHeader = req.headers.authorization;
+const JWT_SECRET = process.env.JWT_SECRET || "default";
 
-    if(!authHeader || authHeader.startsWith('Bearer ')){
-        return res.status(401).json({error: 'token não enviado'});
-    }
+export function autenticar(req: Request, res: Response, next: NextFunction) {
+  const authHeader = req.headers.authorization;
 
-    const token = authHeader.replace('Bearer', '');
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    res.status(401).json({ error: "token não enviado" });
+    return;
+  }
 
-    try{
-        const payload = jwt.verify(token, JWT_SECRET);
-        req.user = payload;
-        next();
-    }catch(e){
-        return res.status(401).json({error: 'token inválido'})
-    }
-
+  const token = authHeader.split(" ")[1];
+  try {
+    const payload = jwt.verify(token, JWT_SECRET);
+    req.user = payload;
+    next();
+  } catch (e) {
+    res.status(401).json({ error: "token inválido" });
+    return;
+  }
 }
