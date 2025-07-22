@@ -1,6 +1,6 @@
 import request from "supertest";
 
-import app from "../../src/infra/server/server";
+import app from "../../infra/server/server";
 
 describe("DELETE /users:id", () => {
   let userId: string;
@@ -12,17 +12,17 @@ describe("DELETE /users:id", () => {
       email: "dandara@example.com",
       password: "123456",
     });
-    userId = body.id
+    userId = body.id;
   });
   it("deve retornar 204 quando remover um usuário com sucesso", async () => {
-    const response = await request(app).delete(`/users/${userId}`)
+    const response = await request(app).delete(`/users/${userId}`);
 
     expect(response.status).toBe(204);
   });
 
   it("deve retornar 404 quando tentar remover um usuário inexistente", async () => {
-    const response = await request(app).delete(`/users/123`)
+    const response = await request(app).delete(`/users/123`);
     expect(response.status).toBe(404);
-    expect(response.body.error).toBe('Usuário não encontrado');
+    expect(response.body.error).toBe("Usuário não encontrado");
   });
 });

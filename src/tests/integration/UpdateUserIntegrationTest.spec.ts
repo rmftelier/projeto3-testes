@@ -1,6 +1,6 @@
 import request from "supertest";
 
-import app from "../../src/infra/server/server";
+import app from "../../infra/server/server";
 
 describe("PATCH /users:id", () => {
   let userId: string;
@@ -12,24 +12,22 @@ describe("PATCH /users:id", () => {
       email: "dandara@example.com",
       password: "123456",
     });
-    userId = body.id
+    userId = body.id;
   });
   it("deve alterar o nome com sucesso", async () => {
     const response = await request(app).patch(`/users/${userId}`).send({
-      name: "Clementina da Silva"
+      name: "Clementina da Silva",
     });
 
     expect(response.status).toBe(200);
-    //expect(response.body.name).toBe('Clementina da Silva')
   });
 
   it.skip("deve retornarn 404 quando um id for inválido", async () => {
     const response = await request(app).patch(`/users/123`).send({
-      name: "Clementina da Silva"
+      name: "Clementina da Silva",
     });
 
     expect(response.status).toBe(404);
-    expect(response.body.error).toBe('Usuário não encontrado')
-   
+    expect(response.body.error).toBe("Usuário não encontrado");
   });
 });
