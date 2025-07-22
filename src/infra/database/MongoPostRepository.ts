@@ -8,6 +8,18 @@ export class MongoPostRepository implements PostRepository {
     await PostModel.create(post);
   }
 
+  async findByUserId(userId: string): Promise<Post[]> {
+    const posts = await PostModel.find({ userId }).lean();
+    return posts.map(
+      (post) =>
+        new Post(
+          post.title || "",
+          post.content || "",
+          post.userId?.toString() || ""
+        )
+    );
+  }
+
   async getAllWithUser(): Promise<PostWithUserDTO[]> {
     return PostModel.aggregate([
       {
@@ -33,27 +45,3 @@ export class MongoPostRepository implements PostRepository {
     ]);
   }
 }
-
-/*
-{
-  "title": "Meu Post Legal",
-  "userId": "123",
-  "user": [ 
-    {
-      "_id": "123",
-      "name": "João",
-      "email": "joao@email.com"
-    }
-  ]
-} 
-  depois
-{
-  "title": "Meu Post Legal",
-  "userId": "123",
-  "user": { 
-    "_id": "123",
-    "name": "João",
-    "email": "joao@email.com"
-  }
-}
-*/

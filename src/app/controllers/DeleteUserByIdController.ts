@@ -4,8 +4,7 @@ import { userRepository } from '../../infra/database/repositoryInstance';
 
 export class DeleteUserByIdController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params; // ou req.params, dependendo da sua rota
-    console.log(req.params, 'AQUIII')
+    const { id } = req.params; 
     const deleteUser = new DeleteUser(userRepository);
     try {
       if (!id) {
