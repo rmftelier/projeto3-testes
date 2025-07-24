@@ -5,15 +5,15 @@ import { postRoutes } from '../../app/controllers/routes/post.routes';
 import { connectMongo } from '../database/mongooseConnection';
 
 const app = express();
-app.use(express.json()); 
+app.use(express.json());
 
-app.use('/users', userRoutes); 
+app.use('/users', userRoutes);
 app.use('/posts', postRoutes);
 
 
-const URI = process.env.MONGO_URI;
+const URI = process.env.MONGO_URL;
 
-if(!URI){
+if (!URI) {
     throw new Error(' a variavel não está definida')
 }
 
