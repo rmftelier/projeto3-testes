@@ -9,8 +9,5 @@ module.exports = {
     ...tsJestTransformCfg,
   },
   setupFilesAfterEnv: ["<rootDir>/tests/setup.ts"],
-  testMatch: ["<rootDir>/tests/**/*.test.ts", "<rootDir>/tests/**/*.spec.ts"],
-  collectCoverageFrom: ["src/**/*.ts", "!src/**/*.d.ts", "!src/main.ts"],
-  testTimeout: 30000,
-  maxConcurrency: 1,
+  collectCoverageFrom: ["src/**/*.ts", "!src/**/*.d.ts", "!src/main.ts"]
 };
